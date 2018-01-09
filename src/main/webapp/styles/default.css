@@ -97,6 +97,10 @@ tbody tr:nth-child(odd) {
 	background-color: #E6E6E6;
 }
 
+.rechts {
+	text-align:right;
+}
+
 label {
 	cursor: pointer;
 }
