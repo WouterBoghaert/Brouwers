@@ -2,12 +2,16 @@ package be.vdab.entities;
 
 import java.io.Serializable;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 import be.vdab.valueobjects.Adres;
 
 public class Brouwer implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private long brouwerNr;
 	private String naam;
+	@NumberFormat(style = Style.NUMBER)
 	private Integer omzet;
 	private Adres adres;
 	

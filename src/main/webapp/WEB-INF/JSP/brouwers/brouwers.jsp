@@ -1,7 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="v" uri="http://vdab.be/tags" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 <html lang="nl">
 	<head>
@@ -31,7 +31,7 @@
 						<td>${brouwer.adres.huisNr}</td>
 						<td>${brouwer.adres.postcode}</td>
 						<td><c:out value="${brouwer.adres.gemeente}"/></td>
-						<td class="rechts"><fmt:formatNumber value="${brouwer.omzet}"/></td>
+						<td class="rechts"><spring:eval expression="brouwer.omzet"/></td>
 					</tr>
 				</c:forEach>
 			</table>
