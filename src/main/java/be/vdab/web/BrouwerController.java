@@ -3,18 +3,23 @@ package be.vdab.web;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import be.vdab.entities.Brouwer;
 import be.vdab.services.BrouwerService;
 
 @Controller
 @RequestMapping("/brouwers")
 class BrouwerController {
 	private static final String ALLE_BROUWERS_VIEW = "brouwers/brouwers";
+	private static final String BROUWERS_OP_ALFABET_VIEW = "brouwers/alfabet";
 	private static final String BROUWERS_OP_NAAM_VIEW = "brouwers/beginnaam";
 	private static final String BROUWERS_TOEVOEGEN_VIEW = "brouwers/toevoegen";
 	private final BrouwerService brouwerService;
@@ -30,18 +35,18 @@ class BrouwerController {
 	}
 	
 	ModelAndView toonAlfabet() {
-		ModelAndView modelAndView = new ModelAndView(BROUWERS_OP_NAAM_VIEW);
+		ModelAndView modelAndView = new ModelAndView(BROUWERS_OP_ALFABET_VIEW);
 		modelAndView.addObject("alfabet", alfabet);
 		return modelAndView ;
 	}
 	
-	@GetMapping("beginnaam")
-	ModelAndView beginnaam() {
+	@GetMapping("alfabet")
+	ModelAndView beginletter() {
 		return toonAlfabet();
 	}
 	
-	@GetMapping("beginnaam/{beginletter}")
-	ModelAndView findByBeginnaam(@PathVariable String beginletter) {
+	@GetMapping("alfabet/{beginletter}")
+	ModelAndView findByLetter(@PathVariable String beginletter) {
 		if(beginletter == null || !alfabet.contains(beginletter)) {
 			return toonAlfabet();
 		}
@@ -50,6 +55,28 @@ class BrouwerController {
 			modelAndView.addObject("brouwers", brouwerService.findByNaam(beginletter));
 			return modelAndView;
 		}
+	}
+	
+	@GetMapping("beginnaam")
+	ModelAndView findByBrouwerBeginNaam() {
+		BrouwerBeginNaam beginnaam = new BrouwerBeginNaam();
+		return new ModelAndView(BROUWERS_OP_NAAM_VIEW).addObject(beginnaam);
+	}
+	
+	@GetMapping(path="beginnaam", params="beginnaam")
+	ModelAndView findByBrouwerBeginNaam(@Valid BrouwerBeginNaam beginnaam,
+		BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView(BROUWERS_OP_NAAM_VIEW);
+		if(!bindingResult.hasErrors()) {
+			List<Brouwer> brouwers = brouwerService.findByNaam(beginnaam.getBeginnaam());
+			if(brouwers.isEmpty()) {
+				bindingResult.reject("geenBrouwers");
+			}
+			else {
+				modelAndView.addObject("brouwers", brouwers);
+			}
+		}
+		return modelAndView;
 	}
 	
 	@GetMapping("toevoegen")
