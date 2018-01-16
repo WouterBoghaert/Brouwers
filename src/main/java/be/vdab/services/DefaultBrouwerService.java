@@ -2,12 +2,10 @@ package be.vdab.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import be.vdab.entities.Brouwer;
 import be.vdab.repositories.BrouwerRepository;
 
-@Service
+@ReadOnlyTransactionalService
 class DefaultBrouwerService implements BrouwerService {
 	private final BrouwerRepository brouwerRepository;
 	
@@ -16,6 +14,7 @@ class DefaultBrouwerService implements BrouwerService {
 	}
 	
 	@Override
+	@ModifyingTransactionalServiceMethod
 	public void create(Brouwer brouwer) {
 		brouwerRepository.create(brouwer);
 	}
