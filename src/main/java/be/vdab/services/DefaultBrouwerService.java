@@ -2,6 +2,9 @@ package be.vdab.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import be.vdab.entities.Brouwer;
 import be.vdab.repositories.BrouwerRepository;
 
@@ -16,17 +19,17 @@ class DefaultBrouwerService implements BrouwerService {
 	@Override
 	@ModifyingTransactionalServiceMethod
 	public void create(Brouwer brouwer) {
-		brouwerRepository.create(brouwer);
+		brouwerRepository.save(brouwer);
 	}
 
 	@Override
-	public List<Brouwer> findAll() {
-		return brouwerRepository.findAll();
+	public Page<Brouwer> findAll(Pageable pageable) {
+		return brouwerRepository.findAll(pageable);
 	}
 
 	@Override
 	public List<Brouwer> findByNaam(String beginNaam) {
-		return brouwerRepository.findByNaam(beginNaam);
+		return brouwerRepository.findByNaamStartingWithOrderByNaamAsc(beginNaam);
 	}
 
 }

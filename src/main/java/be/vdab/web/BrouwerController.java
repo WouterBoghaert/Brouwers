@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -34,8 +35,8 @@ class BrouwerController {
 	}
 	
 	@GetMapping
-	ModelAndView findAll() {
-		return new ModelAndView(ALLE_BROUWERS_VIEW,"brouwers", brouwerService.findAll());
+	ModelAndView findAll(Pageable pageable) {
+		return new ModelAndView(ALLE_BROUWERS_VIEW,"page", brouwerService.findAll(pageable));
 	}
 	
 	ModelAndView toonAlfabet() {

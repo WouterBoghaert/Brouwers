@@ -2,6 +2,7 @@ package be.vdab.valueobjects;
 
 import java.io.Serializable;
 
+import javax.persistence.Embeddable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 
+@Embeddable
 public class Adres implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@NotBlank

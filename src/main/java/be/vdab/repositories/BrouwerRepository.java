@@ -2,10 +2,15 @@ package be.vdab.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import be.vdab.entities.Brouwer;
 
-public interface BrouwerRepository {
-	void create(Brouwer brouwer);
-	List<Brouwer> findAll();
-	List<Brouwer> findByNaam(String beginNaam);
+public interface BrouwerRepository extends JpaRepository<Brouwer, Long> {
+	List<Brouwer> findByNaamStartingWithOrderByNaamAsc(String beginNaam);
+	
+	@Override
+	Page<Brouwer> findAll(Pageable pageable);
 }

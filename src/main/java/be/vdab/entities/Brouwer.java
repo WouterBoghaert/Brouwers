@@ -2,6 +2,12 @@ package be.vdab.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -14,9 +20,13 @@ import org.springframework.format.annotation.NumberFormat.Style;
 
 import be.vdab.valueobjects.Adres;
 
+@Entity
+@Table(name="brouwers")
 public class Brouwer implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private long brouwerNr;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	@NotBlank
 	@Length(min=1,max=50)
 	@SafeHtml
@@ -27,6 +37,7 @@ public class Brouwer implements Serializable {
 	private Integer omzet;
 	@NotNull
 	@Valid
+	@Embedded
 	private Adres adres;
 	
 	public Brouwer() {
@@ -39,9 +50,9 @@ public class Brouwer implements Serializable {
 		this.adres = adres;
 	}
 
-	public Brouwer(long brouwerNr, String naam, Integer omzet, Adres adres) {
+	public Brouwer(long id, String naam, Integer omzet, Adres adres) {
 		this(naam, omzet, adres);
-		this.brouwerNr = brouwerNr;
+		this.id = id;
 	}
 
 	public Adres getAdres() {
@@ -52,8 +63,8 @@ public class Brouwer implements Serializable {
 		this.adres = adres;
 	}
 
-	public long getBrouwerNr() {
-		return brouwerNr;
+	public long getId() {
+		return id;
 	}
 
 	public String getNaam() {
@@ -64,8 +75,8 @@ public class Brouwer implements Serializable {
 		return omzet;
 	}
 
-	public void setBrouwerNr(long brouwerNr) {
-		this.brouwerNr = brouwerNr;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setNaam(String naam) {
@@ -74,5 +85,5 @@ public class Brouwer implements Serializable {
 
 	public void setOmzet(Integer omzet) {
 		this.omzet = omzet;
-	}	
+	}
 }
