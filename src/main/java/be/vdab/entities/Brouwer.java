@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -22,6 +23,7 @@ import be.vdab.valueobjects.Adres;
 
 @Entity
 @Table(name="brouwers")
+@XmlRootElement
 public class Brouwer implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
