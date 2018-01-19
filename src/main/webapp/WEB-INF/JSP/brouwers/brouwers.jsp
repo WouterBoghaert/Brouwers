@@ -37,7 +37,12 @@
 						<td><c:out value="${brouwer.adres.straat}"/></td>
 						<td>${brouwer.adres.huisNr}</td>
 						<td>${brouwer.adres.postcode}</td>
-						<td><c:out value="${brouwer.adres.gemeente}"/></td>
+						<td><c:out value="${brouwer.adres.gemeente}"/>
+						<spring:url value="/temperatuur/temperatuur/{gemeente}" var="temperatuurURL">
+							<spring:param name="gemeente" value="${brouwer.adres.gemeente}"></spring:param>
+						</spring:url>
+						<a href="${temperatuurURL}">temperatuur</a>
+						</td>
 						<td class="rechts"><spring:eval expression="brouwer.omzet"/></td>
 					</tr>
 				</c:forEach>
