@@ -13,7 +13,7 @@
 		<c:choose>
 			<c:when test="${empty fout}">
 				<h2>De temperatuur in ${gemeente} is 
-				<fmt:formatNumber value="${temperatuur}"/></h2>
+				<fmt:formatNumber value="${temperatuur}"/> °C</h2>
 			</c:when>
 			<c:otherwise>
 				<div class="fout">${fout}</div>

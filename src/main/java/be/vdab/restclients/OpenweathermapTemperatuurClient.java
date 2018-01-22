@@ -21,24 +21,23 @@ class OpenweathermapTemperatuurClient implements TemperatuurClient {
 		Logger.getLogger(OpenweathermapTemperatuurClient.class.getName());
 	private URI openweathermapURL;
 	private final RestTemplate restTemplate;
-	private final String key;
 	
 	OpenweathermapTemperatuurClient(@Value("${openweathermapURL}") 
-		URI openweathermapURL, @Value("${openweathermapKey}")
-		String key, RestTemplate restTemplate) {
+		URI openweathermapURL, RestTemplate restTemplate) {
 		this.openweathermapURL = openweathermapURL;
 		this.restTemplate = restTemplate;
-		this.key = key;
 	}
 	
 	@Override
 	public BigDecimal getTemperatuur(String gemeente) {
 		try {
 			StringBuilder builder = new StringBuilder();
-			builder.append(openweathermapURL.toString());
-			builder.append("&q=" + gemeente);
-			builder.append("&APPID=" + key);
-			System.out.println(builder.toString());
+			String url = openweathermapURL.toString();
+			String [] splitAmp  = url.split("&", 2);
+			String [] splitVraag = splitAmp[0].split("\\?");
+			builder.append(splitVraag[0]);
+			builder.append("?q=" + gemeente);
+			builder.append("&" + splitAmp[1]);
 			openweathermapURL = new URI(builder.toString());
 			Weather weer = restTemplate.getForObject(openweathermapURL, Weather.class);
 			return weer.getTemperature().getValue();
@@ -49,3 +48,5 @@ class OpenweathermapTemperatuurClient implements TemperatuurClient {
 		}
 	}
 }
+
+// stringbuilder herschrijven, split doen op & en zo het q element vervangen

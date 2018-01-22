@@ -8,8 +8,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 class Temperature {
-	@XmlAttribute
+	@XmlAttribute(name="value")
 	private BigDecimal value;
+
 
 	public BigDecimal getValue() {
 		return value;
