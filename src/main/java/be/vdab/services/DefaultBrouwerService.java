@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import be.vdab.entities.Brouwer;
 import be.vdab.repositories.BrouwerRepository;
@@ -16,6 +17,7 @@ class DefaultBrouwerService implements BrouwerService {
 		this.brouwerRepository = brouwerRepository;
 	}
 	
+	@PreAuthorize("hasAuthority('administrator')")
 	@Override
 	@ModifyingTransactionalServiceMethod
 	public void create(Brouwer brouwer) {
